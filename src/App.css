@@ -1,66 +1,218 @@
-/* Custom styles for OLX clone */
+/* Custom styles for Daraz clone */
 
-.category-card {
+/* Daraz Brand Colors */
+:root {
+  --daraz-orange: #f57c00;
+  --daraz-dark-orange: #ef6c00;
+  --daraz-light-orange: #ffb74d;
+  --daraz-blue: #1976d2;
+  --daraz-red: #d32f2f;
+  --daraz-green: #388e3c;
+}
+
+/* Header Styles */
+.daraz-header {
+  background: linear-gradient(135deg, var(--daraz-orange), var(--daraz-dark-orange));
+  border: none;
+}
+
+.daraz-logo {
+  color: white !important;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.search-input .form-control {
+  border-radius: 25px 0 0 25px;
+  padding: 12px 20px;
+  font-size: 14px;
+}
+
+.daraz-search-btn {
+  background-color: var(--daraz-dark-orange);
+  border: none;
+  border-radius: 0 25px 25px 0;
+  padding: 12px 20px;
   transition: all 0.2s ease-in-out;
+}
+
+.daraz-search-btn:hover {
+  background-color: #e65100;
+  transform: scale(1.05);
+}
+
+/* Category Cards */
+.category-card {
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  cursor: pointer;
 }
 
 .category-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
-}
-
-.product-card {
-  transition: all 0.2s ease-in-out;
-}
-
-.product-card:hover {
-  transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
 }
 
-.product-carousel .carousel-control-prev,
-.product-carousel .carousel-control-next {
-  background-color: rgba(0, 47, 52, 0.7);
-  width: 40px;
-  height: 40px;
+/* Hero Banner */
+.hero-carousel .carousel-item {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.hero-carousel .carousel-control-prev,
+.hero-carousel .carousel-control-next {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 50%;
   top: 50%;
   transform: translateY(-50%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
 }
 
-.product-carousel:hover .carousel-control-prev,
-.product-carousel:hover .carousel-control-next {
-  opacity: 1;
+.hero-carousel .carousel-control-prev {
+  left: 20px;
 }
 
-.product-carousel .carousel-control-prev {
-  left: 10px;
+.hero-carousel .carousel-control-next {
+  right: 20px;
 }
 
-.product-carousel .carousel-control-next {
-  right: 10px;
+.hero-carousel .carousel-control-prev-icon,
+.hero-carousel .carousel-control-next-icon {
+  filter: invert(1);
 }
 
-.product-carousel .carousel-indicators {
-  bottom: 10px;
+/* Flash Sale Section */
+.flash-sale-section {
+  background: linear-gradient(135deg, #fff5f5, #ffebee);
+  border-radius: 0;
 }
 
-.product-carousel .carousel-indicators button {
-  background-color: #002f34;
+.flash-sale-card {
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-/* Search input focus styles */
-.form-control:focus {
-  border-color: #002f34;
-  box-shadow: 0 0 0 0.2rem rgba(0, 47, 52, 0.25);
+.flash-sale-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
 }
 
-/* Button hover effects */
-.btn-outline-dark:hover {
-  background-color: #002f34;
-  border-color: #002f34;
+.flash-badge {
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.flash-sale-icon {
+  animation: pulse 2s infinite;
+}
+
+/* Product Cards */
+.product-card {
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+}
+
+.wishlist-icon:hover {
+  color: var(--daraz-red) !important;
+  transform: scale(1.2);
+}
+
+.discount-badge {
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  padding: 8px 0;
+}
+
+.bottom-nav .nav-link {
+  color: #666 !important;
+  font-size: 12px;
+  padding: 8px 4px !important;
+}
+
+.bottom-nav .nav-link:hover,
+.bottom-nav .nav-link.active {
+  color: var(--daraz-orange) !important;
+}
+
+/* Button Styles */
+.btn-primary {
+  background-color: var(--daraz-orange);
+  border-color: var(--daraz-orange);
+}
+
+.btn-primary:hover {
+  background-color: var(--daraz-dark-orange);
+  border-color: var(--daraz-dark-orange);
+}
+
+.btn-outline-primary {
+  color: var(--daraz-orange);
+  border-color: var(--daraz-orange);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--daraz-orange);
+  border-color: var(--daraz-orange);
+}
+
+.btn-danger {
+  background-color: var(--daraz-red);
+  border-color: var(--daraz-red);
+}
+
+.btn-outline-danger {
+  color: var(--daraz-red);
+  border-color: var(--daraz-red);
+}
+
+.btn-outline-danger:hover {
+  background-color: var(--daraz-red);
+  border-color: var(--daraz-red);
+}
+
+/* Badge Styles */
+.badge {
+  font-size: 0.7rem;
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeInUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+.category-card,
+.product-card,
+.flash-sale-card {
+  animation: fadeInUp 0.6s ease-out;
 }
 
 /* Custom scrollbar for better UX */
@@ -81,40 +233,19 @@
   background: #555;
 }
 
-/* Responsive adjustments */
+/* Responsive Design */
 @media (max-width: 768px) {
-  .product-card .card-body {
-    padding: 1rem;
+  .daraz-logo {
+    font-size: 1.5rem !important;
   }
   
-  .category-card .card-body {
-    padding: 1rem;
+  .search-input .form-control {
+    font-size: 14px;
+    padding: 10px 15px;
   }
-}
-
-/* Loading animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.product-card,
-.category-card {
-  animation: fadeIn 0.5s ease-out;
-}
-
-/* Price highlighting */
-.text-primary {
-  color: #002f34 !important;
-}
-
-/* Featured badge animation */
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-.badge {
-  animation: pulse 2s infinite;
+  
+  .flash-sale-card .card-body,
+  .product-card .card-body {
+    padding: 12px;
+  }
 }

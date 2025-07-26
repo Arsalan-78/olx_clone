@@ -1,84 +1,100 @@
 import React from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { Filter } from 'lucide-react';
-import ProductCard from './ProductCard';
+import { Container, Row, Col, Card, Badge, Button } from 'react-bootstrap';
+import { FiStar, FiShoppingCart, FiHeart, FiTruck } from 'react-icons/fi';
+import { products } from '../data/darazData';
 
-const ProductGrid = ({ products, selectedCategory, setSelectedCategory, searchTerm }) => {
-  const filteredProducts = products.filter(product => {
-    const matchesCategory = !selectedCategory || selectedCategory === 'All' || product.category === selectedCategory;
-    const matchesSearch = !searchTerm || 
-      product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.category.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    return matchesCategory && matchesSearch;
-  });
+const ProductGrid = () => {
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('en-PK', {
+      style: 'currency',
+      currency: 'PKR',
+      minimumFractionDigits: 0,
+    }).format(price).replace('PKR', 'Rs ');
+  };
 
   return (
-    <Container className="my-4">
-      {/* Filters Section */}
+    <Container className="my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h5 className="mb-0" style={{ color: '#002f34' }}>
-          {selectedCategory ? `${selectedCategory} in Pakistan` : 'Fresh recommendations'}
-          <span className="text-muted ms-2">({filteredProducts.length} ads)</span>
-        </h5>
-        
-        <div className="d-flex align-items-center">
-          <Form.Select size="sm" className="me-2" style={{ width: '150px' }}>
-            <option>Sort by: Date</option>
-            <option>Price: Low to High</option>
-            <option>Price: High to Low</option>
-          </Form.Select>
-          
-          <Button variant="outline-secondary" size="sm" className="d-flex align-items-center">
-            <Filter size={16} className="me-1" />
-            Filters
-          </Button>
-        </div>
+        <h4 className="fw-bold mb-0">Just For You</h4>
+        <Button variant="outline-primary" size="sm">View All</Button>
       </div>
-
-      {/* Category Filter Pills */}
-      <div className="mb-4">
-        <div className="d-flex flex-wrap gap-2">
-          <Button
-            variant={!selectedCategory || selectedCategory === 'All' ? 'primary' : 'outline-secondary'}
-            size="sm"
-            onClick={() => setSelectedCategory('All')}
-            style={!selectedCategory || selectedCategory === 'All' ? 
-              { backgroundColor: '#002f34', borderColor: '#002f34' } : {}}
-          >
-            All Categories
-          </Button>
-          {['Mobiles', 'Vehicles', 'Property for Rent', 'Electronics & Home Appliances', 'Bikes'].map(category => (
-            <Button
-              key={category}
-              variant={selectedCategory === category ? 'primary' : 'outline-secondary'}
-              size="sm"
-              onClick={() => setSelectedCategory(category)}
-              style={selectedCategory === category ? 
-                { backgroundColor: '#002f34', borderColor: '#002f34' } : {}}
-            >
-              {category}
-            </Button>
-          ))}
-        </div>
-      </div>
-
-      {/* Products Grid */}
+      
       <Row>
-        {filteredProducts.map(product => (
-          <Col key={product.id} xl={3} lg={4} md={6} className="mb-4">
-            <ProductCard product={product} />
+        {products.map(product => (
+          <Col key={product.id} lg={3} md={6} className="mb-4">
+            <Card className="h-100 border-0 shadow-sm product-card position-relative">
+              <div className="position-absolute top-0 end-0 p-2" style={{ zIndex: 1 }}>
+                <FiHeart 
+                  size={18} 
+                  className="text-muted wishlist-icon" 
+                  style={{ cursor: 'pointer' }} 
+                />
+              </div>
+              
+              {product.originalPrice && (
+                <div className="position-absolute top-0 start-0 m-2" style={{ zIndex: 1 }}>
+                  <Badge bg="success" className="discount-badge">
+                    -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
+                  </Badge>
+                </div>
+              )}
+
+              <div style={{ height: '200px', overflow: 'hidden' }}>
+                <Card.Img 
+                  variant="top" 
+                  src={product.image} 
+                  style={{ height: '200px', objectFit: 'cover' }}
+                />
+              </div>
+              
+              <Card.Body className="p-3">
+                <Card.Title className="fs-6 mb-2 text-truncate" title={product.title}>
+                  {product.title}
+                </Card.Title>
+                
+                <div className="d-flex align-items-center mb-2">
+                  <div className="d-flex align-items-center me-2">
+                    <FiStar size={14} className="text-warning me-1" />
+                    <span className="small text-muted">{product.rating}</span>
+                  </div>
+                  <span className="small text-muted">({product.reviews} reviews)</span>
+                </div>
+                
+                <div className="mb-2">
+                  <div className="d-flex align-items-center">
+                    <span className="fw-bold text-primary fs-5 me-2">
+                      {formatPrice(product.price)}
+                    </span>
+                    {product.originalPrice && (
+                      <small className="text-muted text-decoration-line-through">
+                        {formatPrice(product.originalPrice)}
+                      </small>
+                    )}
+                  </div>
+                </div>
+                
+                {product.freeShipping && (
+                  <div className="mb-2">
+                    <Badge bg="success" className="d-flex align-items-center w-fit">
+                      <FiTruck size={12} className="me-1" />
+                      Free Shipping
+                    </Badge>
+                  </div>
+                )}
+                
+                <Button 
+                  variant="outline-primary" 
+                  size="sm" 
+                  className="w-100 d-flex align-items-center justify-content-center"
+                >
+                  <FiShoppingCart size={16} className="me-2" />
+                  Add to Cart
+                </Button>
+              </Card.Body>
+            </Card>
           </Col>
         ))}
       </Row>
-
-      {filteredProducts.length === 0 && (
-        <div className="text-center py-5">
-          <h5 className="text-muted">No products found</h5>
-          <p className="text-muted">Try adjusting your search or filters</p>
-        </div>
-      )}
     </Container>
   );
 };
